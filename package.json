@@ -1,0 +1,33 @@
+{
+    "name": "smartthings-iotfuse",
+    "version": "0.0.1",
+    "description": "Learn how to integrate SmartThings into a Slack workspace.",
+    "main": "slash.js",
+    "scripts": {
+        "start": "node slash.js",
+        "debug": "node --nolazy --inspect-brk=9229 slash.js",
+        "test": "node ./spec/slash.js",
+        "scss": "node-sass --watch sass -o public"
+    },
+    "dependencies": {
+        "body-parser": "^1.18.2",
+        "botkit": "^0.6.13",
+        "cookie-parser": "^1.4.3",
+        "debug": "^3.1.0",
+        "express": "^4.16.3",
+        "express-hbs": "^1.0.4",
+        "node-env-file": "^0.1.8",
+        "query-string": "^6.0.0",
+        "request-promise": "^4.2.2",
+        "axios": "^0.18.0"
+    },
+    "devDependencies": {
+        "node-sass": "^4.8.3"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://git.vandevlab.com/iot/pi/iotfuse-workshop.git"
+    },
+    "author": "SmartThings",
+    "license": "Apache Version 2.0"
+}

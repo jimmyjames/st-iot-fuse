@@ -1,0 +1,340 @@
+<div class="hero">
+    <h1>SmartThings Workshop</h1>
+</div>
+
+<div class="box">
+    <p>
+        <strong>✅ Your Botkit app is correctly deployed and running!</strong>
+        Create a SmartThings app and connect it to Slack to complete the setup.
+    </p>
+
+</div>
+
+<div class="box">
+    <h1>Create a public tunnel</h1>
+
+    <p>
+        For this workshop, we need an publicly-accessible host with HTTPS. The easiest way to achieve this is by installing
+        <a href="https://ngrok.com/download" target="_blank">ngrok</a> for your platform. Once installed, start it up with the following command:
+        <code>ngrok http 3000</code>
+    </p>
+
+    <p>
+        Paste the HTTPS forwarding URL below.
+    </p>
+
+    <p>
+        <label>Forwarding URL:</label>
+        <input id="host" class="copyurl" placeholder="e.g., https://<your-unique-subdomain>.ngrok.io" onchange='generateHost();generateEnv();'
+        />
+    </p>
+
+</div>
+
+<div class="box">
+    <h1>Create a SmartThings app</h1>
+
+    <p>
+        To be able to execute SmartThings API calls, we need to create an app with your account. Paste in your Personal Access Token
+        below and you will get a
+        <strong>clientId</strong> and
+        <strong>client secret</strong>.
+    </p>
+
+    <p>
+        <label>Personal Access Token:</label>
+        <input id="stPersonalAccessToken" class="copyurl" placeholder="Paste your Personal Access Token here " />
+    </p>
+
+
+    <a href="javascript:createSmartThingsApp()" class="button" target="_blank">Create app</a>
+
+    <p>
+        <label>Client ID:</label>
+        <input id="stClientId" class="copyurl" onchange="generateEnv()" placeholder="Generated SmartThings client id" />
+    </p>
+
+    <p>
+        <label>Client Secret:</label>
+        <input id="stClientSecret" class="copyurl" onchange="generateEnv()" placeholder="Generated SmartThings client secret" />
+    </p>
+</div>
+
+<div class="box">
+    <h1>Create a Slack Application</h1>
+
+    <p>
+        To bring this Slack command online, create a new Slack application on the Slack developer site. You will get a
+        <strong>client id</strong> and
+        <strong>client secret</strong>. Make sure to copy and paste those values below for safe keeping.
+    </p>
+    <a href="http://api.slack.com/apps/new" class="button" target="_blank">Open Slack developer site</a>
+
+    <p>
+        <label>Client ID:</label>
+        <input id="clientId" class="copyurl" onchange="generateEnv()" placeholder="Paste your client id value here " />
+    </p>
+
+    <p>
+        <label>Client Secret:</label>
+        <input id="clientSecret" class="copyurl" onchange="generateEnv()" placeholder="Paste your client secret value here " />
+    </p>
+
+</div>
+
+<div class="box">
+
+    <h1>Configure Features</h1>
+
+    <p>
+        Botkit, the framework used in this workshop, will be using 3 features of Slack's API: Interactive Components, Slash commands,
+        and OAuth. You will need to configure each.
+    </p>
+
+    <div class="hr"></div>
+
+    <h3>1. Interactive Components</h3>
+
+    <p>
+        Click on the Slack application's "Interactive Components" tab. Enter this URL in the "Request URL" field, and then save your
+        changes.
+    </p>
+
+    <p>
+        This option will allow your bot to send and receive interactive messages with buttons, menus and dialog boxes.
+    </p>
+
+    <div class="input">
+        <label>Request URL</label>
+        <div class="addon">
+            <input readonly class="copyurl" id="webhook_url" type="text" placeholder="enter a public tunnel first" />
+            <button onclick="clipboard('webhook_url')">Copy</button>
+        </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <h3>2. Slash Commands</h3>
+
+    <p>
+        Click on the Slack application's "Slash Commands" tab, and create a new command. Your command should be something that represents
+        the application. For the sake of this workshop, use
+        <code>/smartthings</code> or
+        <code>/st</code>. Be cautious in naming your command, as they are not namespaced within Slack, so there can be duplicates-- the most-recently
+        installed command will be the active one.
+
+        <p>
+            <div class="input">
+                <label>Request URL</label>
+                <div class="addon">
+                    <input readonly class="copyurl" type="text" id="request_url" placeholder="enter a public tunnel first" />
+                    <button onclick="clipboard('request_url')">Copy</button>
+                </div>
+            </div>
+        </p>
+        <p>
+            <div class="input">
+                <label>Short Description</label>
+                <div class="addon">
+                    <input readonly class="copyurl" type="text" id="control_your_things" value="Control your things" />
+                    <button onclick="clipboard('control_your_things')">Copy</button>
+                </div>
+            </div>
+        </p>
+        <p>
+            <div class="input">
+                <label>Usage Hint</label>
+                <div class="addon">
+                    <input readonly class="copyurl" type="text" id="usage_hint" value="turn [on|off] the [group] lights" />
+                    <button onclick="clipboard('usage_hint')">Copy</button>
+                </div>
+            </div>
+        </p>
+
+        Click Save.
+    </p>
+
+    <h3>3. OAuth & Permissions</h3>
+
+    <p>
+        Click on the Slack application's "OAuth & Permissions" tab. Scroll down to "Redirect URLs" and click "Add a new Redirect
+        URL." Enter this URL, and click "Save URLs"
+
+        <div class="input">
+            <label>OAuth Redirect URL</label>
+            <div class="addon">
+                <input readonly class="copyurl" type="text" id="oauth_url" placeholder="enter a public tunnel first" />
+                <button onclick="clipboard('oauth_url')">Copy</button>
+            </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <h3>You are now finished with the Slack developer site! You can close that tab.</h3>
+
+
+</div>
+
+<div class="box">
+
+    <h3>Edit the
+        <code>.env</code> File</h3>
+
+    <p>
+        The final step that will bring your app online is to add the credentials collected in steps 1 and 2 to this projects
+        <code>.env</code> file.
+        <strong>Be careful not to change the other lines in this file!</strong>
+    </p>
+
+    <div class="input">
+        <label>Add this to your .env file</label>
+        <div class="addon">
+            <textarea rows="10" class="copyurl" id="env_file"></textarea>
+            <button class="textarea" onclick="clipboard('env_file')">Copy</button>
+        </div>
+    </div>
+
+</div>
+
+<div class="box">
+    <h1>Ready to Connect!</h1>
+
+    <p>
+        Once you have values in your
+        <code>.env</code> file, and Slack has been configured correctly, your bot is ready to connect. Restart this application and reload
+        this page - you'll see an "Add to Slack" button that will install your new bot!
+    </p>
+
+</div>
+
+</div>
+
+<script>
+    function clipboard(element) {
+        var copyText = document.getElementById(element);
+        copyText.select();
+        document.execCommand("Copy");
+    }
+
+    function generateHost() {
+        document.getElementById('oauth_url').value = document.getElementById('host').value + '/slack/oauth';
+        document.getElementById('request_url').value = document.getElementById('host').value + '/slack/receive';
+        document.getElementById('webhook_url').value = document.getElementById('host').value + '/slack/receive';
+    }
+
+    function S4() {
+        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    }
+
+    function createSmartThingsApp() {
+        var pat = document.getElementById('stPersonalAccessToken').value;
+        var host = document.getElementById('host').value;
+        var guid = (S4() + S4() + "-" + S4() + "-4" + S4().substr(0, 3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
+
+        var createAppSettings = {
+            async: true,
+            crossDomain: true,
+            url: "https://api.smartthings.com/v1/apps",
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${pat}`,
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            processData: false,
+            data: JSON.stringify({
+                appName: `slack-smartthings-${guid}`,
+                displayName: "Slack + SmartThings",
+                description: "Slack slash-commands to control your Things",
+                appType: "API_ONLY",
+                apiOnly: {},
+                oauth: {
+                    clientName: "slack-smartthings-oauth-client",
+                    scope: [
+                        "r:devices:*",
+                        "x:devices:*"
+                    ],
+                    redirectUris: [
+                        `${host}/st/oauth`
+                    ]
+                }
+            })
+        }
+
+        var getAppSettings = {
+            async: true,
+            crossDomain: true,
+            url: `https://api.smartthings.com/v1/apps/slack-smartthings-${guid}`,
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${pat}`,
+                'Content-Type': "application/json",
+                Accept: "application/json"
+            },
+            processData: false
+        }
+
+        $.ajax(createAppSettings)
+            .done(function (data, textStatus, jqXHR) {
+                console.log(data);
+                document.getElementById('stClientId').value = data.oauthClientId;
+                document.getElementById('stClientSecret').value = data.oauthClientSecret;
+                generateEnv();
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
+                console.log(errorThrown);
+                $.ajax(getAppSettings)
+                    .done(function (data, textStatus, jqXHR) {
+
+                        var deleteAppSettings = {
+                            async: true,
+                            crossDomain: true,
+                            url: `https://api.smartthings.com/v1/apps/${data.appId}`,
+                            method: "DELETE",
+                            headers: {
+                                Authorization: `Bearer ${pat}`,
+                                "Content-Type": "application/json",
+                                Accept: "application/json"
+                            },
+                            processData: false
+                        };
+                        $.ajax(deleteAppSettings)
+                            .done(function (data, textStatus, jqXHR) {
+
+                                $.ajax(createAppSettings)
+                                    .done(function (data, textStatus, jqXHR) {
+                                        document.getElementById('stClientId').value = data.oauthClientId;
+                                        document.getElementById('stClientSecret').value = data.oauthClientSecret;
+                                        generateEnv();
+                                    });
+
+                            });
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus);
+                        console.log(errorThrown);
+                    });
+            });
+
+    }
+
+    function generateEnv() {
+        var clientId = document.getElementById('clientId').value || '<Your client ID value here>';
+        var clientSecret = document.getElementById('clientSecret').value || '<Your client secret value here>';
+        var stClientId = document.getElementById('stClientId').value || '<Your SmartThings client ID value here>';
+        var stClientSecret = document.getElementById('stClientSecret').value || '<Your SmartThings client secret value here>';
+        var host = document.getElementById('host').value || '<Your ngrok host>';
+        var env = '# slack credentials' +
+            '\nclientId=' + clientId +
+            '\nclientSecret=' + clientSecret +
+            '\n\n# smartthings credentials' +
+            '\nstClientId=' + stClientId +
+            '\nstClientSecret=' + stClientSecret +
+            '\n\n# server configuration' +
+            '\nhost=' + host;
+        document.getElementById('env_file').value = env;
+    }
+
+    generateEnv();
+</script>

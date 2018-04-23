@@ -1,0 +1,24 @@
+{
+  "name": "SmartThings IoTFuse Workshop",
+  "description": "Learn how to integrate SmartThings with a Slack workspace",
+  "env": {
+    "clientId": {
+      "description": "Client ID provided by Slack"
+    },
+    "clientSecret": {
+      "description": "Client Secret provided by Slack"
+    },
+    "stClientId": {
+      "description": "Client ID provided by SmartThings"
+    },
+    "stClientSecret": {
+      "description": "Client Secret provided by SmartThings"
+    },
+    "verificationCode": {
+      "description": "Verification code from Slack App configuration"
+    },
+    "PORT": {
+      "description": "The HTTP port to bind to"
+    }
+  }
+}
