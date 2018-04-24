@@ -140,3 +140,21 @@ Your task is to:
 2. Update `lights.js` to pass in the correct arguments to `getDevices`.
 
 When testing your changes, don't forget to stop/start your app!
+
+## Step 3 - Let there be light!
+
+In this step, we'll make a request to turn on or off the switch.
+
+First, checkout the step-3 tag:
+
+`git checkout step-3`
+
+We'll be updating the same files as before.
+You'll now notice that `lights.js` has some new code to call `devicesApi.actuateDevice`. 
+Your task is to:
+1. Update the options argument to pass in the correct data.
+2. Finish the implementation of `actuateDevice` in `devices.js` by filling in the command body.
+
+Don't forget to stop/start your app when testing changes.
+
+You'll know you're successful when you get a success message back, and more importantly when you see the light go on/off in your SmartThings mobile app!
