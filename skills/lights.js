@@ -26,8 +26,8 @@ module.exports = controller => {
         }
 
         const opts = {
-            name: "", // TODO
-            capability: "", // TODO
+            name: switchName,
+            capability: "switch",
             controller: controller,
             user: message.user_profile
         };
@@ -44,10 +44,22 @@ module.exports = controller => {
 
         console.log(`Found device ${JSON.stringify(device)}`);
 
-        return slashCommand.replyPrivateDelayed(
-            message,
-            `Hi! You asked me to "turn ${command} the ${switchName} lights. I can't do that yet, but will be able to soon!`
-        );
+        const switchOpts = {
+            deviceId: "", // TODO
+            capability: "", // TODO
+            command: "", // TODO
+            controller: controller,
+            user: message.user_profile
+        };
+
+        let success = await devicesApi.actuateDevice(switchOpts);
+        
+        if (success) {
+            return slashCommand.replyPrivateDelayed(message, `Woot! I turned ${command} your ${switchName} switch`);
+        } else {
+            return slashCommand.replyPrivateDelayed(message, `Hmmmm. There was an error turning ${command} your ${switchName} switch`);
+        }
+        
     });
 };
 
