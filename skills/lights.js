@@ -45,9 +45,9 @@ module.exports = controller => {
         console.log(`Found device ${JSON.stringify(device)}`);
 
         const switchOpts = {
-            deviceId: "", // TODO
-            capability: "", // TODO
-            command: "", // TODO
+            deviceId: device.id,
+            capability: "switch",
+            command: command,
             controller: controller,
             user: message.user_profile
         };
