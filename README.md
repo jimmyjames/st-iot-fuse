@@ -158,3 +158,24 @@ Your task is to:
 Don't forget to stop/start your app when testing changes.
 
 You'll know you're successful when you get a success message back, and more importantly when you see the light go on/off in your SmartThings mobile app!
+
+## Step 4 - Working with multiple devices
+
+Now that we're able to control single switch devices, wouldn't it be cool if we could control multiple devices with one command?
+What we're going to do now is start to add that feature, so that we can lock and unlock all our doors with a single command.
+
+Before starting to work, checkout the step-4 tag:
+
+`git checkout step-4`
+
+Your task in this step will be to get all the lock devices for the user (we'll send the commands in the next step).
+This will be similar to what we did in step 2, when we made the request to get a single device.
+We'll be able to reuse some code we've already written.
+Your task is to:
+
+1. Update `./skills/locks.js` to pass the right capability argument to `devicesApi.getDevices`.
+2. Update `./skills/locks.js` to return a message to the user if any lock devices are found, or not.
+
+Don't forget to stop/start your app when testing changes.
+
+You'll know you're successful when you get a success message back, and see the devices returned logged to the application's console output.
