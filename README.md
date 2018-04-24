@@ -102,3 +102,41 @@ There are some other utility commands already implemented:
 - `/smartthings (uptime|alive|debug)` - health check the app
 - `/smartthings help` - basic command help
 - `/smartthings (logout|gdpr|forget me)` - delete the SmartThings account details, will force you to reauthorize.
+
+## Step 2 - Get the requested device
+
+Before we can execute a command on a device, we need to get the device itself.
+In this step, we'll call the SmartThings API to get the device object for the name the user requested.
+
+Before proceeding, checkout the step-2 tag:
+
+`git checkout step-2`
+
+### Create some test devices
+
+We need some devices to test with - we'll create some "simulated" devices for this purpose. 
+We will create three devices - one light and two locks. 
+
+We'll do this together so you can follow along, but the steps are:
+
+1. Go to https://graph.api.smartthings.com and login if necessary.
+2. Click the "My Locations" link, then click your Location or create a new Location if you don't have one yet.
+3. Click the "My Devices" link.
+4. Click the "New Device" button.
+5. Enter something meaningful for the Name (e.g., "Kitchen lights", "Front door", "Back door").
+6. Enter random characters in the "Device Network Id" field (just needs to be unique).
+7. For the light devices, select "Simulated Switch" in the "Type" dropdown. For lock devices, select "Simulated Lock".
+8. Choose your location in the "Location" dropdown.
+9. Repeat steps 4-8 for each device (one switch and two locks).
+
+### Call the devices API to get the device
+
+For this step, we'll be working in the files `./skills/lights.js` and `./lib/devices.js`.
+
+Take a look at `lights.js` and notice there is some basic functionality already implemented.
+
+Your task is to:
+1. Implement the `getDevices(options, devicesAccum)` function in `devices.js` (the one toward the bottom of the file).
+2. Update `lights.js` to pass in the correct arguments to `getDevices`.
+
+When testing your changes, don't forget to stop/start your app!

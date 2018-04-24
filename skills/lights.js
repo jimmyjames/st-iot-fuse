@@ -18,9 +18,39 @@ module.exports = controller => {
         console.log(`Lights skill - command: ${command}`);
         console.log(`Lights skill - switchName: ${switchName}`);
 
+        if (!validCommand(command)) {
+            return slashCommand.replyPrivateDelayed(
+                message,
+                `Hi! You asked me to "turn ${command}" the "${switchName}" lights. I can only turn switches on or off. Try "${message.command} turn on/off the ${switchName}"`
+            );
+        }
+
+        const opts = {
+            name: "", // TODO
+            capability: "", // TODO
+            controller: controller,
+            user: message.user_profile
+        };
+
+        console.log("will call deviceApi.getDevice");
+
+        let device = await devicesApi.getDevice(opts);
+
+        if (!device) {
+            return slashCommand.replyPrivateDelayed(
+                message, 
+                `Sorry, I can't find a switch with the name "${switchName}"`);
+        }
+
+        console.log(`Found device ${JSON.stringify(device)}`);
+
         return slashCommand.replyPrivateDelayed(
             message,
             `Hi! You asked me to "turn ${command} the ${switchName} lights. I can't do that yet, but will be able to soon!`
         );
     });
 };
+
+function validCommand(command) {
+    return ["on", "off"].indexOf(command) >= 0;
+}
