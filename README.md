@@ -179,3 +179,18 @@ Your task is to:
 Don't forget to stop/start your app when testing changes.
 
 You'll know you're successful when you get a success message back, and see the devices returned logged to the application's console output.
+
+## Step 5 - Controlling multiple devices
+
+Now that we are able to get all the locks for a user's location, we need to execute the requested command (lock/unlock) on all of them.
+
+First, checkout the step-5 tag:
+
+`git checkout step-5`
+
+Your task in this step will be to:
+
+1. Update `./lib/devices.js` to finish the implementation of `actuateDevices`
+2. Update `./skills/locks.js` to call `actuateDevices` and notify the user of success or failure.
+
+As usual, don't forget to stop/restart your app when attempting to test your changes!

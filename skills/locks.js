@@ -22,7 +22,7 @@ module.exports = controller => {
         }
     
         const options = {
-            capability: "", // TODO
+            capability: "lock",
             controller: controller,
             user: message.user_profile
         };
@@ -30,18 +30,31 @@ module.exports = controller => {
         console.log(`Will call devicesApi.getDevices`);
     
         let doors = (await devicesApi.getDevices(options)).data;
-    
+
+        if (!doors || doors.items.length === 0) {
+            return slashCommand.replyPrivateDelayed(message, `Sorry, I can't find any doors to ${command}`);
+        }
+
         console.log(`Got locks: ${JSON.stringify(doors)}`);
 
-        // TODO - if no devices found, message user (if they are, just notify user we will handle command next!)
-        // Hint - getDevices() just returns the response from the List Devices API, as documented at
-        // https://smartthings.developer.samsung.com/develop/api-ref/st-api.html#operation/getDevices
-        // need to see if the API returned anything and that the items array is not empty
+        // TODO
+        // - Call actuateDevices, store the results (actuateDevices returns an array of booleans,
+        //           indicating success/failure of sending commands)
+        // - Finish actuateDevices implementation in devices.js
+        // - Check the results to see if any commands failed, and notify user
+        // - If all commands succeeded, notify user.
+        const lockOptions = {
+            devices: [], // TODO
+            capability: "", // TODO
+            command: "", // TODO
+            controller: controller,
+            user: message.user_profile
+        };
+
         return slashCommand.replyPrivateDelayed(
             message,
-            `Hi! You asked me to "${command} the doors. I can't do that yet, but will be able to soon!`
+            `TODO - make me ${command} your doors!`
         );
-
     });
 };
 
