@@ -37,23 +37,30 @@ module.exports = controller => {
 
         console.log(`Got locks: ${JSON.stringify(doors)}`);
 
-        // TODO
-        // - Call actuateDevices, store the results (actuateDevices returns an array of booleans,
-        //           indicating success/failure of sending commands)
-        // - Finish actuateDevices implementation in devices.js
-        // - Check the results to see if any commands failed, and notify user
-        // - If all commands succeeded, notify user.
         const lockOptions = {
-            devices: [], // TODO
-            capability: "", // TODO
-            command: "", // TODO
+            devices: doors.items,
+            capability: "lock",
+            command: command, 
             controller: controller,
             user: message.user_profile
         };
 
+        let results = await devicesApi.actuateDevices(lockOptions);
+        if (!results.includes(true)) {
+            return slashCommand.replyPrivateDelayed(
+                message,
+                `Hmmm. There was an error ${command}ing your doors.`
+            );
+        }
+        if (results.every(value => true)) {
+            return slashCommand.replyPrivateDelayed(
+                message,
+                `Ok, I ${command}ed ${results.length} ${results.length > 1 ? `doors`: `door`}!`
+            );
+        }
         return slashCommand.replyPrivateDelayed(
             message,
-            `TODO - make me ${command} your doors!`
+            `Err.... I managed to ${command} _some_ of your doors.`
         );
     });
 };

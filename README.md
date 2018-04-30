@@ -194,3 +194,39 @@ Your task in this step will be to:
 2. Update `./skills/locks.js` to call `actuateDevices` and notify the user of success or failure.
 
 As usual, don't forget to stop/restart your app when attempting to test your changes!
+
+## Complete code and next steps
+
+To get the full, completed source code, checkout the step-final tag:
+
+`git checkout step-final`
+
+We encourage you to expand on this example if you wish.
+There are many more things we could do - here are just a few ideas:
+
+- Get the status of a device (e.g., switch on or off, temperature of a thermostat, etc.).
+- Set the mode of your house.
+- Group multiple devices and control them through a single command (e.g., turn on all switches downstairs).
+- Send a message to Slack when someone arrives home.
+
+## Links
+
+Here are links to the various tools and documentation that are used in this workshop:
+
+### API/SDK Docs
+
+- [SmartThings Developer Portal](https://smartthings.developer.samsung.com/)
+- [SmartThings API Reference](https://smartthings.developer.samsung.com/develop/api-ref/st-api.html)
+- [SmartThings Capabilities Reference](https://smartthings.developer.samsung.com/develop/api-ref/capabilities.html)
+- [Slack API Docs](https://api.slack.com/)
+- [Botkit Docs](https://botkit.ai/docs/)
+
+### Tools
+
+- [SmartThings Groovy IDE](https://graph.api.smartthings.com/) (used only to create simulated devices)
+
+### Other examples
+
+- [SmartThings CLI](https://github.com/SmartThingsCommunity/cli-example-nodejs)
+- [Weather Color Light SmartApp](https://github.com/SmartThingsCommunity/weather-color-light-smartapp-nodejs)
+- [LIFX cloud-to-cloud Connector](https://github.com/SmartThingsCommunity/example-lifx-nodejs-web-connector)
